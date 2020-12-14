@@ -68,7 +68,7 @@ export default function SignIn() {
             id=""
             label="NIK"
             name=""
-        
+            autoComplete="current-password"
             autoFocus
           />
           <TextField
@@ -80,7 +80,7 @@ export default function SignIn() {
             label="Password"
             type="password"
             id=""
-           
+            autoComplete="current-password"
           
           />
           <FormControlLabel
