@@ -84,73 +84,9 @@ export default function App() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Fajri Sang Legenda
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-        
-            <ListItem button key='Cv' onClick={() =>{window.location.hash ='/cv'}}>
-              <ListItemIcon> <InboxIcon /></ListItemIcon>
-              <ListItemText primary='Cv Sang Legenda' />
-            </ListItem>
-            <ListItem button key='SignIn'onClick={() =>{window.location.hash ='/User'}}>
-              <ListItemIcon> <MailIcon /></ListItemIcon>
-              <ListItemText primary='User Legenda' />
-            </ListItem>
-    
-        </List>
-        
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
         <HashRouter>
             <Switch>
                 {
@@ -158,10 +94,9 @@ export default function App() {
                     (item, index) => <Route key={index.toString()} path={item.path} name={item.name} component={item.component} />
                     )   
                 }
-                <Redirect exact from='*' to='/SignIn'/>
+                <Redirect exact from='*' to='/Login'/>
             </Switch>
         </HashRouter>
-      </main>
     </div>
   );
 }

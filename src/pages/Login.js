@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,9 +11,12 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {HashRouter, Redirect, Route, Switch,NavLink  } from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch,NavLink,} from "react-router-dom";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-function Copyright() {
+const base_url = 'http://localhost:3003';
+
+function Copyright() { 
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -25,6 +28,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,7 +50,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function Login() {
+  const [tampilError, setTampilError] = useState(false)
+  const [NIK, setNIK] = useState("")
+  const [Password, setPassword] = useState("")
+  const onClickLogin = function () {
+    console.log(NIK,Password)
+    // window.location.hash ='/App'
+    let option = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          "NIK": NIK,
+          "password": Password
+      })
+  }
+  fetch(base_url + '/login', option).then(res => res.json()).then(response => {
+      console.log(response.login)
+      if (response.login === true) {
+        window.location.hash = '/App'
+      }
+      else {
+        setTampilError(true)
+      }
+  });
+  }
+
+  const onNIKChange = function (element) {
+    console.log(element.target.value);
+    setNIK(element.target.value)
+}
+const onPasswordChange = function (element) {
+  console.log(element.target.value);
+  setPassword(element.target.value)
+}
   const classes = useStyles();
 
   return (
@@ -59,7 +98,7 @@ export default function SignIn() {
           Menjadi Habib
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
+          <TextField 
             variant="outlined"
             margin="normal"
             type="number"
@@ -70,6 +109,9 @@ export default function SignIn() {
             name=""
             autoComplete="current-password"
             autoFocus
+            onChange={function(element){
+              onNIKChange(element)}
+            }
           />
           <TextField
             variant="outlined"
@@ -81,22 +123,23 @@ export default function SignIn() {
             type="password"
             id=""
             autoComplete="current-password"
-          
+            onChange={function(element){
+              onPasswordChange(element)}
+            }
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Ingat Aku Ya :3"
           />
-          <Button
+          <Button 
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-          >
+            onClick=  {onClickLogin} >
             Login 
-            <Link href="https://www.fpi-online.com/">
-              </Link>
+          
           </Button>
           {/* <Grid container>
             <Grid item xs>
@@ -119,6 +162,13 @@ export default function SignIn() {
       <Box mt={8}>
         <Copyright />
       </Box>
+      {tampilError &&
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        This is an error alert — <strong>check it out!</strong>
+      </Alert>
+      }
+
     </Container>
   );
 }
