@@ -19,6 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { HashRouter, Redirect, Route, Switch} from 'react-router-dom';
 import DrawerRoutes from '../config/DrawerRoutes';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
@@ -77,12 +78,18 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  
 }));
 
 export default function Home() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+ const  logout = () => {
+    // localStorage.clear();
+    window.location.hash = "/" ;
+}
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -132,7 +139,6 @@ export default function Home() {
         </div>
         <Divider />
         <List>
-        
             <ListItem button key='HRD' onClick={() =>{window.location.hash ='/App/HRD'}}>
               <ListItemIcon> <InboxIcon /></ListItemIcon>
               <ListItemText primary='HaErDai' />
@@ -144,6 +150,30 @@ export default function Home() {
             <ListItem button key='StockBarang'onClick={() =>{window.location.hash ='/App/StockBarang'}}>
               <ListItemIcon> <MailIcon /></ListItemIcon>
               <ListItemText primary='Stock Barang' />
+            </ListItem>
+            <ListItem button key="Beli Barang" onClick={() =>{window.location.hash ='/App/BeliBarang'}}>
+            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemText primary='Beli Barang' />
+            </ListItem>
+            <ListItem button key="InputStock" onClick={() =>{window.location.hash ='/App/InputStock'}}>
+            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemText primary='InputStock' />
+            </ListItem>
+            <ListItem button key="Manajemen Gudang" onClick={() =>{window.location.hash ='/App/ManajemenGudang'}}>
+            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemText primary='ManajemenGudang' />
+            </ListItem>
+            <ListItem button key="Barang" onClick={() =>{window.location.hash ='/App/Barang'}}>
+            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemText primary='Barang' />
+            </ListItem>
+            <ListItem button key="Stock" onClick={() =>{window.location.hash ='/App/Stock'}}>
+            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemText primary='Stock' />
+            </ListItem>
+            <ListItem button key="PENGEN KELUAR" onClick={logout}>
+              <ListItemIcon> <ExitToAppIcon /> </ListItemIcon>
+            <ListItemText primary ="PENGEN KELUAR" />
             </ListItem>
     
         </List>

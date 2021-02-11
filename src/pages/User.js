@@ -182,7 +182,7 @@ export default function User() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {data.length >0 && data.map((row) => (
               <StyledTableRow key={row.NIK}>
                 <StyledTableCell component="th" scope="row">{row.NIK}</StyledTableCell>
                 <StyledTableCell align="right">{row.nama}</StyledTableCell>
